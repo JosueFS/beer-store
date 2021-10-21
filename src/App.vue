@@ -16,6 +16,11 @@ export default {
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 html {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;

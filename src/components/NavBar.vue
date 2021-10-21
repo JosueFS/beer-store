@@ -1,10 +1,10 @@
 <template>
   <div id="nav" class="nav">
-    <router-link to="/" class="brand">Real World Events</router-link>
+    <router-link to="/" class="brand">Beer Store</router-link>
 
     <nav>
-      <router-link :to="{ name: 'event-list' }">List</router-link> |
-      <router-link :to="{ name: 'event-create' }">Event Create</router-link>
+      <router-link :to="{ name: 'home' }">Home</router-link> |
+      <router-link :to="{ name: 'favorites' }">Favorites</router-link>
     </nav>
   </div>
 </template>

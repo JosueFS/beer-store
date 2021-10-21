@@ -8,7 +8,7 @@
     </div>
     <BaseIcon name="map"><h2>Location</h2></BaseIcon>
     <address>{{ event.location }}</address>
-    <h2>Event details</h2>
+    <h2>Beer details</h2>
     <p>{{ event.description }}</p>
     <h2>
       Attendees
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import api from "@/services/api.js";
+// import api from "@/services/api.js";
 
 export default {
   props: ["id"],
@@ -38,13 +38,13 @@ export default {
       event: {},
     };
   },
-  async created() {
-    try {
-      const response = await api.get(`events/${this.id}`);
-      this.event = response.data;
-    } catch (error) {
-      console.log(error);
-    }
-  },
+  // async created() {
+  //   try {
+  //     const response = await api.get(`events/${this.id}`);
+  //     this.event = response.data;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // },
 };
 </script>

@@ -1,8 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import EventList from "../views/EventList.vue";
-import EventShow from "../views/EventShow.vue";
-import EventCreate from "../views/EventCreate.vue";
+import Home from "../views/Home.vue";
+import Favorites from "../views/Favorites.vue";
 
 Vue.use(VueRouter);
 
@@ -15,26 +14,14 @@ export default new VueRouter({
   routes: [
     {
       path: "/",
-      name: "event-list",
-      component: EventList,
+      name: "home",
+      component: Home,
     },
     {
-      path: "/event/:id",
-      name: "event-show",
-      component: EventShow,
+      path: "/favorites",
+      name: "favorites",
+      component: Favorites,
       props: true,
-    },
-    {
-      path: "/event/create",
-      name: "event-create",
-      component: EventCreate,
     },
   ],
 });
-// const router = new VueRouter({
-//   mode: "history",
-//   base: process.env.BASE_URL,
-//   routes,
-// });
-
-// export default router;
