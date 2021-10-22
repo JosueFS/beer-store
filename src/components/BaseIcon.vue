@@ -7,9 +7,9 @@
 
 <script>
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { HiSolidUsers } from "oh-vue-icons/icons";
+import { FaStar, FaRegularStar } from "oh-vue-icons/icons";
 
-addIcons(HiSolidUsers);
+addIcons(FaStar, FaRegularStar);
 
 export default {
   props: {

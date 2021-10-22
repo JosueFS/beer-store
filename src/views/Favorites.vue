@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="event-header">
+    <!-- <div class="event-header">
       <span class="eyebrow">@{{ event.time }} on {{ event.date }}</span>
       <h1 class="title">{{ event.title }}</h1>
       <h5>Organized by {{ event.organizer }}</h5>
@@ -24,7 +24,7 @@
       >
         <b>{{ attendee.name }}</b>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
@@ -32,7 +32,7 @@
 // import api from "@/services/api.js";
 
 export default {
-  props: ["id"],
+  // props: ["id"],
   data() {
     return {
       event: {},
