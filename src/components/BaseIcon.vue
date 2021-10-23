@@ -1,20 +1,21 @@
 <template>
   <div class="icon-wrapper">
-    <v-icon class="icon" :name="name" scale="1" />
+    <v-icon class="icon" :name="name" :scale="scale" />
     <slot></slot>
   </div>
 </template>
 
 <script>
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { FaStar, FaRegularStar } from "oh-vue-icons/icons";
+import { FaRegularHeart, FaHeart } from "oh-vue-icons/icons";
 
-addIcons(FaStar, FaRegularStar);
+addIcons(FaRegularHeart, FaHeart);
 
 export default {
   props: {
     //See additional props: https://oh-vue-icons.netlify.app/docs/#props
     name: String,
+    scale: Number,
   },
   components: {
     "v-icon": OhVueIcon,
@@ -22,20 +23,18 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .icon-wrapper {
   display: inline-flex;
   align-items: center;
-  color: rgba(0, 0, 0, 0.4);
+  /* color: #2f2f2f; */
   font-size: 1rem;
   font-weight: 600;
 }
 .icon {
-  margin-right: 6px;
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  fill: none;
 }
 </style>

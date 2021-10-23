@@ -1,44 +1,115 @@
 <template>
-  <router-link
-    class="event-link"
-    :to="{ name: 'event-show', params: { id: beer.id } }"
-  >
-    <div class="event-card -shadow">
-      <span class="eyebrow">@{{ beer.tagline }} </span>
+  <div class="event-card -shadow">
+    <img class="beer-image" :src="beer.image_url" :alt="beer.tagline" />
+    <div class="title-box">
       <h4 class="title">{{ beer.name }}</h4>
-      <span>{{ beer.first_brewed }}</span>
-      <BaseIcon name="fa-star"> </BaseIcon>
-      <span>{{ beer.description }}</span>
     </div>
-  </router-link>
+    <i class="tagline">{{ beer.tagline }} </i>
+    <p class="multiline">{{ beer.description }}</p>
+
+    <div class="card-footer">
+      <strong>{{ beer.first_brewed }}</strong>
+      <FavoriteIcon class="favorite-icon"></FavoriteIcon>
+    </div>
+  </div>
 </template>
 
 <script>
+import FavoriteIcon from "@/components/FavoriteIcon.vue";
+
 export default {
   props: {
     beer: Object,
+  },
+  components: {
+    FavoriteIcon,
+  },
+  methods: {
+    addFavorite() {
+      console.log("test");
+    },
   },
 };
 </script>
 
 <style lang="scss">
 .event-card {
-  padding: 20px;
+  position: relative;
+  /* max-width: 278px; */
+  min-width: 310px;
+  max-height: 420px;
+  padding: 20px 20px 0;
   margin-bottom: 24px;
   transition: all 0.2s linear;
-  cursor: pointer;
-}
-.event-card:hover {
-  transform: scale(1.01);
-  box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2), 0 1px 15px 0 rgba(0, 0, 0, 0.19);
-}
-.event-card > .title {
-  margin: 0;
-}
 
+  .favorite-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    border-radius: 50%;
+
+    &:hover {
+      background: #fee7f2;
+    }
+  }
+
+  .beer-image {
+    height: 200px;
+    width: auto;
+  }
+
+  > .title-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > .title {
+      font-family: "Roboto Slab" !important;
+      margin: 0;
+    }
+  }
+
+  .tagline {
+    text-transform: italic;
+  }
+
+  .multiline {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    white-space: normal;
+    /* transition: all 3s; */
+  }
+
+  &:hover {
+    max-height: 700px;
+    transform: scale(1.01);
+    box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2),
+      0 1px 15px 0 rgba(0, 0, 0, 0.19);
+
+    .multiline {
+      overflow: visible;
+      -webkit-line-clamp: unset;
+    }
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+  }
+}
 .event-link {
   color: black;
   text-decoration: none;
   font-weight: 100;
+  /* z-index: 1; */
 }
 </style>
