@@ -1,28 +1,27 @@
 <template>
-  <label>
-    <input type="checkbox" />
+  <button>
+    <input type="checkbox" :checked="isFavorite" />
     <div class="like-btn-svg"></div>
-    <slot></slot>
-  </label>
+  </button>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    isFavorite: Boolean,
+  },
+};
 </script>
 
 <style lang="scss">
 .like-btn-svg {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
   background: url(https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png)
     no-repeat;
   background-size: 2900%;
   background-position: left;
   cursor: pointer;
-
-  &:hover {
-    background-position: right;
-  }
 }
 
 input[type="checkbox"] {
