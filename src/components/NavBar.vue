@@ -5,6 +5,10 @@
         <v-toolbar-title> Beer Store </v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
+
+      <v-text-field label="Search" class="mt-6" filled dense></v-text-field>
+
+      <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn
           exact
@@ -49,3 +53,28 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+a.brand > div.v-toolbar__title {
+  color: #fff;
+}
+
+div.v-input {
+  border-radius: 28px;
+
+  div.v-input__slot {
+    &:before,
+    &:after {
+      border: transparent !important;
+    }
+
+    div.v-text-field__slot {
+      padding: 0 16px;
+
+      & > label {
+        left: 8px;
+      }
+    }
+  }
+}
+</style>
