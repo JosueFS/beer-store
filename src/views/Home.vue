@@ -1,7 +1,7 @@
 <template>
   <v-row class="flex-wrap">
-    <v-col cols="4" no-gutters v-for="beer in beers" :key="beer.id">
-      <BeerCard :beer="beer">
+    <v-col cols="3." v-for="beer in beers" :key="beer.id">
+      <BeerCard :beer="beer" @update-favorites="updateFavorite">
         {{ beer }}
       </BeerCard>
     </v-col>
@@ -9,7 +9,6 @@
 </template>
 
 <script>
-// import NavBar from
 import BeerCard from "@/components/BeerCard.vue";
 import api from "@/services/api.js";
 
@@ -20,17 +19,40 @@ export default {
   data() {
     return {
       beers: [],
+      favorites: [],
     };
   },
   methods: {
-    menuItems() {
-      return this.menu;
+    updateFavorite(beer, action) {
+      switch (action) {
+        case "add":
+          this.favorites.push(beer);
+          localStorage.setItem(
+            "@BeerList:Favorites",
+            JSON.stringify(this.favorites)
+          );
+          break;
+        case "remove":
+          this.favorites = this.favorites.filter(
+            (favorite_beer) => favorite_beer.id !== beer.id
+          );
+          localStorage.setItem(
+            "@BeerList:Favorites",
+            JSON.stringify(this.favorites)
+          );
+          break;
+        default:
+          break;
+      }
     },
   },
   async created() {
     try {
       const response = await api.get("beers");
       this.beers = response.data;
+
+      this.favorites =
+        JSON.parse(localStorage.getItem("@BeerList:Favorites")) || [];
     } catch (error) {
       console.log(error);
     }

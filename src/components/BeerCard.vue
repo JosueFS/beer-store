@@ -7,9 +7,14 @@
     <i class="tagline">{{ beer.tagline }} </i>
     <p class="multiline">{{ beer.description }}</p>
 
+    <FavoriteIcon
+      class="favorite-icon"
+      @click.native="updFavorites"
+      :isFavorite="isFavorite"
+    />
+
     <div class="card-footer">
-      <strong>{{ beer.first_brewed }}</strong>
-      <FavoriteIcon class="favorite-icon"></FavoriteIcon>
+      <strong>{{ beer.first_brewed.slice(3) }}</strong>
     </div>
   </div>
 </template>
@@ -24,10 +29,33 @@ export default {
   components: {
     FavoriteIcon,
   },
+  data() {
+    return {
+      isFavorite: false,
+    };
+  },
   methods: {
-    addFavorite() {
-      console.log("test");
+    loadFavorites() {
+      const favorites =
+        JSON.parse(localStorage.getItem("@BeerList:Favorites")) || [];
+
+      const foundBeer = favorites.find(
+        (fav_beer) => this.beer.id === fav_beer.id
+      );
+
+      this.isFavorite = !!foundBeer;
     },
+    updFavorites() {
+      if (this.isFavorite) {
+        this.$emit("update-favorites", this.beer, "remove");
+      } else {
+        this.$emit("update-favorites", this.beer, "add");
+      }
+      this.isFavorite = !this.isFavorite;
+    },
+  },
+  mounted() {
+    this.loadFavorites();
   },
 };
 </script>
@@ -37,13 +65,16 @@ export default {
   position: relative;
   /* max-width: 278px; */
   min-width: 310px;
-  max-height: 420px;
+  max-height: 440px;
   padding: 20px 20px 0;
   margin-bottom: 24px;
-  transition: all 0.2s linear;
+  transition: all 0.4s linear;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.13);
 
   .favorite-icon {
     position: absolute;
+    width: 50px;
+    height: 50px;
     top: 8px;
     right: 8px;
     background: transparent;
