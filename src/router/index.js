@@ -1,7 +1,7 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Favorites from "../views/Favorites.vue";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
+import Favorites from '../views/Favorites.vue';
 
 Vue.use(VueRouter);
 
@@ -10,16 +10,16 @@ Vue.use(VueRouter);
 // which is lazy-loaded when the route is visited.
 /* webpackChunkName: "about" */
 export default new VueRouter({
-  mode: "history",
+  mode: 'history',
   routes: [
     {
-      path: "/",
-      name: "home",
+      path: '/',
+      name: 'home',
       component: Home,
     },
     {
-      path: "/favorites",
-      name: "favorites",
+      path: '/favorites',
+      name: 'favorites',
       component: Favorites,
       props: true,
     },
