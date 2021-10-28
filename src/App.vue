@@ -1,8 +1,8 @@
 <template>
   <v-app app>
     <NavBar />
-    <v-main style="margin-top: 16px">
-      <router-view />
+    <v-main>
+      <router-view :key="$route.fullPath" />
     </v-main>
     <Footer />
   </v-app>
