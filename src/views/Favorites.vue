@@ -21,15 +21,12 @@ import { mapState } from 'vuex';
 import BeerCard from '@/components/BeerCard.vue';
 
 export default {
-  props: {
-    isFavorite: Boolean,
-  },
   components: {
     BeerCard,
   },
 
-  computed: {
-    ...mapState(['favorites']),
-  },
+  computed: mapState({
+    favorites: (state) => state.favoriteModule.favorites,
+  }),
 };
 </script>

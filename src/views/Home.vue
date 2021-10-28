@@ -7,7 +7,13 @@
         </BeerCard>
       </v-col>
     </v-row>
-    <v-pagination v-model="page" :length="5" circle></v-pagination>
+    <v-pagination
+      class="my-4"
+      v-model="page"
+      :length="36"
+      :total-visible="10"
+      circle
+    ></v-pagination>
   </v-main>
 </template>
 
@@ -22,28 +28,22 @@ export default {
   },
   data() {
     return {
-      page: parseInt(this.$route.query.page),
+      page: parseInt(this.$route.query.page) || 1,
     };
   },
   watch: {
     page(value) {
-      this.$router.push({ path: `?&page=${value}` });
+      this.$router.push({ path: `?page=${value}` });
     },
   },
   async created() {
-    this.$store.dispatch('loadFavorites');
-
-    try {
-      await this.$store.dispatch('getBeers', {
-        page: this.page,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    await this.$store.dispatch('beerModule/getBeers', {
+      page: this.page,
+    });
   },
-  computed: {
-    ...mapState(['beers']),
-  },
+  computed: mapState({
+    beers: (state) => state.beerModule.beers,
+  }),
 };
 </script>
 

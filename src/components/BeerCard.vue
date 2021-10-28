@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import FavoriteIcon from '@/components/FavoriteIcon.vue';
 
 export default {
@@ -32,22 +31,30 @@ export default {
   },
   data() {
     return {
-      isFavorite: this.$store.getters.isFavoriteBeer(this.beer.id),
+      isFavorite: false,
     };
   },
   methods: {
     updFavorites() {
       if (this.isFavorite) {
-        this.$store.dispatch('removeFavorite', this.beer);
+        this.$store.dispatch('favoriteModule/removeFavorite', this.beer);
       } else {
-        this.$store.dispatch('addFavorite', this.beer);
+        this.$store.dispatch('favoriteModule/addFavorite', this.beer);
       }
       this.isFavorite = !this.isFavorite;
     },
   },
   computed: {
-    // ...mapGetters(['isFavoriteBeer']),
-    ...mapActions(['updateFavorite']),
+    // ...mapGetters('favoriteModule', ['isFavoriteBeer']),
+    // isFavorite() {
+    //   return this.isFavoriteBeer(this.beer.id);
+    // },
+  },
+  created() {
+    this.isFavorite = this.$store.dispatch(
+      'favoriteModule/isFavoriteBeer',
+      this.beer.id
+    );
   },
 };
 </script>
