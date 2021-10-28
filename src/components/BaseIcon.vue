@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { FaRegularHeart, FaHeart } from "oh-vue-icons/icons";
+import { OhVueIcon, addIcons } from 'oh-vue-icons';
+import { FaRegularHeart, FaHeart } from 'oh-vue-icons/icons';
 
 addIcons(FaRegularHeart, FaHeart);
 
@@ -18,7 +18,7 @@ export default {
     scale: Number,
   },
   components: {
-    "v-icon": OhVueIcon,
+    'v-icon': OhVueIcon,
   },
 };
 </script>
