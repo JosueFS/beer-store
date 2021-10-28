@@ -24,7 +24,7 @@ export default {
   cursor: pointer;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   display: none;
 }
 
