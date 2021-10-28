@@ -36,8 +36,12 @@ export default new Vuex.Store({
 
   //Funções que serão utilizadas globalmente (para chamar uma mutation ou não)
   actions: {
-    async getBeers({ commit }, queryString) {
-      const { data: beerList } = await API.getBeerList(queryString);
+    async getBeers({ commit }, queryString, page, perPage) {
+      const { data: beerList } = await API.getBeerList(
+        queryString,
+        page,
+        perPage
+      );
 
       commit('UPDATE_BEER_LIST', beerList);
     },
