@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import FavoriteIcon from "@/components/FavoriteIcon.vue";
+import { mapActions } from 'vuex';
+import FavoriteIcon from '@/components/FavoriteIcon.vue';
 
 export default {
   props: {
@@ -31,31 +32,22 @@ export default {
   },
   data() {
     return {
-      isFavorite: false,
+      isFavorite: this.$store.getters.isFavoriteBeer(this.beer.id),
     };
   },
   methods: {
-    loadFavorites() {
-      const favorites =
-        JSON.parse(localStorage.getItem("@BeerList:Favorites")) || [];
-
-      const foundBeer = favorites.find(
-        (fav_beer) => this.beer.id === fav_beer.id
-      );
-
-      this.isFavorite = !!foundBeer;
-    },
     updFavorites() {
       if (this.isFavorite) {
-        this.$emit("update-favorites", this.beer, "remove");
+        this.$store.dispatch('removeFavorite', this.beer);
       } else {
-        this.$emit("update-favorites", this.beer, "add");
+        this.$store.dispatch('addFavorite', this.beer);
       }
       this.isFavorite = !this.isFavorite;
     },
   },
-  mounted() {
-    this.loadFavorites();
+  computed: {
+    // ...mapGetters(['isFavoriteBeer']),
+    ...mapActions(['updateFavorite']),
   },
 };
 </script>
@@ -98,7 +90,7 @@ export default {
     align-items: center;
 
     > .title {
-      font-family: "Roboto Slab" !important;
+      font-family: 'Roboto Slab' !important;
       margin: 0;
     }
   }
@@ -120,7 +112,7 @@ export default {
 
   &:hover {
     max-height: 700px;
-    transform: scale(1.01);
+    /* transform: scale(1.01); */
     box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2),
       0 1px 15px 0 rgba(0, 0, 0, 0.19);
 

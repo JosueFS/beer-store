@@ -6,7 +6,14 @@
       </router-link>
       <v-spacer></v-spacer>
 
-      <v-text-field label="Search" class="mt-6" filled dense></v-text-field>
+      <v-text-field
+        label="Search"
+        v-model.trim="query"
+        @input="getBeerByName"
+        class="mt-6"
+        filled
+        dense
+      ></v-text-field>
 
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
@@ -29,7 +36,12 @@
     <v-navigation-drawer v-model="drawer" fixed temporary>
       <v-list nav dense>
         <v-list-item-group>
-          <v-list-item v-for="item in menu" :key="item.title">
+          <v-list-item
+            exact
+            v-for="item in menu"
+            :key="item.title"
+            :to="{ name: item.name }"
+          >
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
@@ -45,11 +57,27 @@ export default {
   data() {
     return {
       menu: [
-        { title: "Home", name: "home" },
-        { title: "Favorites", name: "favorites" },
+        { title: 'Home', name: 'home' },
+        { title: 'Favorites', name: 'favorites' },
       ],
       drawer: false,
+      query: '',
+      running: false,
     };
+  },
+  methods: {
+    //Prevent multiple request to API when typing a query string
+    getBeerByName() {
+      if (!this.running) {
+        this.running = true;
+
+        let timer = setTimeout(async () => {
+          await this.$store.dispatch('getBeers', this.query);
+          this.running = false;
+          clearInterval(timer);
+        }, 1000);
+      }
+    },
   },
 };
 </script>
@@ -57,6 +85,10 @@ export default {
 <style lang="scss">
 a.brand > div.v-toolbar__title {
   color: #fff;
+}
+
+aside.v-navigation-drawer {
+  height: auto !important;
 }
 
 div.v-input {

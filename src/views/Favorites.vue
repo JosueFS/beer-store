@@ -1,13 +1,15 @@
 <template>
   <v-row class="flex-wrap">
     <v-col
-      cols="4"
-      rows="12"
-      no-gutters
+      cols="auto"
+      lg="3"
+      md="4"
+      sm="4"
+      xs="4"
       v-for="beer in favorites"
       :key="beer.id"
     >
-      <BeerCard :beer="beer" @update-favorites="updateFavorite">
+      <BeerCard :beer="beer">
         {{ beer }}
       </BeerCard>
     </v-col>
@@ -15,48 +17,19 @@
 </template>
 
 <script>
-import BeerCard from "@/components/BeerCard.vue";
+import { mapState } from 'vuex';
+import BeerCard from '@/components/BeerCard.vue';
 
 export default {
+  props: {
+    isFavorite: Boolean,
+  },
   components: {
     BeerCard,
   },
-  data() {
-    return {
-      favorites: [],
-    };
-  },
-  methods: {
-    updateFavorite(beer, action) {
-      switch (action) {
-        case "add":
-          this.favorites.push(beer);
-          localStorage.setItem(
-            "@BeerList:Favorites",
-            JSON.stringify(this.favorites)
-          );
-          break;
-        case "remove":
-          this.favorites = this.favorites.filter(
-            (favorite_beer) => favorite_beer.id !== beer.id
-          );
-          localStorage.setItem(
-            "@BeerList:Favorites",
-            JSON.stringify(this.favorites)
-          );
-          break;
-        default:
-          break;
-      }
-    },
-  },
-  created() {
-    try {
-      this.favorites =
-        JSON.parse(localStorage.getItem("@BeerList:Favorites")) || [];
-    } catch (error) {
-      console.log(error);
-    }
+
+  computed: {
+    ...mapState(['favorites']),
   },
 };
 </script>
