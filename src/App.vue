@@ -9,18 +9,21 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
-import Footer from "@/components/Footer.vue";
+import NavBar from '@/components/NavBar.vue';
+import Footer from '@/components/Footer.vue';
 
 export default {
   components: {
     NavBar,
     Footer,
   },
+  created() {
+    this.$store.dispatch('loadFavorites');
+  },
 };
 </script>
 
-<style>
+<style lang="scss">
 * {
   margin: 0;
   padding: 0;
@@ -33,7 +36,7 @@ html {
 }
 body {
   margin: 0;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
