@@ -11,4 +11,24 @@ export default new Vuex.Store({
     beerModule,
     favoriteModule,
   },
+  state: {
+    page: 1,
+    queryString: undefined,
+  },
+  mutations: {
+    SET_PAGE(state, newPage) {
+      state.page = newPage;
+    },
+    SET_QUERY_STRING(state, query) {
+      state.queryString = query;
+    },
+  },
+  actions: {
+    handleSetPage({ commit }, newPage) {
+      commit('SET_PAGE', newPage);
+    },
+    handleSetQueryString({ commit }, query) {
+      commit('SET_QUERY_STRING', query);
+    },
+  },
 });

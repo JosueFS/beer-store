@@ -1,4 +1,4 @@
-import API from '@/services/API.js';
+import api from '@/services/api.js';
 
 export default {
   namespaced: true,
@@ -14,7 +14,7 @@ export default {
   actions: {
     async getBeers({ commit }, queryString, page, perPage) {
       try {
-        const { data: beerList } = await API.getBeerList(
+        const { data: beerList } = await api.getBeerList(
           queryString,
           page,
           perPage

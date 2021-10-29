@@ -30,25 +30,25 @@ export default {
 
   //Funções que serão utilizadas globalmente (para chamar uma mutation ou não)
   actions: {
-    addFavorite({ commit }, beer) {
-      commit('ADD_FAVORITE', beer);
-    },
-    removeFavorite({ commit }, beer) {
-      commit('REMOVE_FAVORITE', beer);
-    },
-    loadFavorites({ commit }) {
-      commit('LOAD_SAVED_FAVORITES');
-    },
     saveInLocalStorage({ state }) {
       localStorage.setItem(
         '@BeerList:Favorites',
         JSON.stringify(state.favorites)
       );
     },
+    loadFavorites({ commit }) {
+      commit('LOAD_SAVED_FAVORITES');
+    },
+    addFavorite({ commit, dispatch }, beer) {
+      commit('ADD_FAVORITE', beer);
+      dispatch('saveInLocalStorage');
+    },
+    removeFavorite({ commit, dispatch }, beer) {
+      commit('REMOVE_FAVORITE', beer);
+      dispatch('saveInLocalStorage');
+    },
     isFavoriteBeer({ state }, id) {
       const foundBeer = state.favorites.find((fav_beer) => id === fav_beer.id);
-      console.log(!!foundBeer, id);
-      console.log(state);
 
       return !!foundBeer;
     },
