@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar dark app>
-      <router-link to="/" class="brand">
+      <router-link to="/" @click="clearQuery" class="brand">
         <v-toolbar-title> Beer Store </v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
@@ -9,10 +9,10 @@
       <v-text-field
         label="Search"
         v-model.trim="query"
-        @input="getBeerByName"
         class="mt-6"
         filled
         dense
+        v-show="$route.path === '/'"
       ></v-text-field>
 
       <v-spacer></v-spacer>
@@ -21,6 +21,7 @@
           exact
           v-for="item in menu"
           :key="item.title"
+          @click="clearQuery"
           :to="{ name: item.name }"
         >
           {{ item.title }}
@@ -62,21 +63,29 @@ export default {
       ],
       drawer: false,
       query: '',
-      running: false,
+      timer: null,
     };
   },
-  methods: {
+  watch: {
     //Prevent multiple request to API when typing a query string
-    getBeerByName() {
-      if (!this.running) {
-        this.running = true;
+    query(value) {
+      clearInterval(this.timer);
+      this.$store.dispatch('handleSetQueryString', value);
 
-        let timer = setTimeout(async () => {
-          await this.$store.dispatch('getBeers', this.query);
-          this.running = false;
-          clearInterval(timer);
-        }, 1000);
-      }
+      this.timer = setTimeout(async () => {
+        this.$router
+          .push({
+            query: { ...this.$route.query, queryString: value, page: 1 },
+          })
+          .catch(() => {});
+        clearInterval(this.timer);
+      }, 1000);
+    },
+  },
+  methods: {
+    clearQuery() {
+      this.query = '';
+      this.$router.push({ query: {} }).catch(() => {});
     },
   },
 };

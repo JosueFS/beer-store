@@ -50,8 +50,8 @@ export default {
     //   return this.isFavoriteBeer(this.beer.id);
     // },
   },
-  created() {
-    this.isFavorite = this.$store.dispatch(
+  async created() {
+    this.isFavorite = await this.$store.dispatch(
       'favoriteModule/isFavoriteBeer',
       this.beer.id
     );

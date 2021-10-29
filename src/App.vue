@@ -18,7 +18,7 @@ export default {
     Footer,
   },
   created() {
-    this.$store.dispatch('loadFavorites');
+    this.$store.dispatch('favoriteModule/loadFavorites');
   },
 };
 </script>

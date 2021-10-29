@@ -9,10 +9,10 @@
     </v-row>
     <v-pagination
       class="my-4"
-      v-model="page"
-      :length="36"
-      :total-visible="10"
+      v-model="componentPage"
       circle
+      :length="2"
+      :disabled="beers.length < 9"
     ></v-pagination>
   </v-main>
 </template>
@@ -28,21 +28,24 @@ export default {
   },
   data() {
     return {
-      page: parseInt(this.$route.query.page) || 1,
+      componentPage: parseInt(this.$route.query.page) || 1,
     };
   },
   watch: {
-    page(value) {
-      this.$router.push({ path: `?page=${value}` });
+    componentPage(value) {
+      this.$router.push({ query: { ...this.$route.query, page: value } });
+
+      this.$store.dispatch('handleSetPage', value);
     },
   },
   async created() {
     await this.$store.dispatch('beerModule/getBeers', {
-      page: this.page,
+      ...this.$route.query,
     });
   },
   computed: mapState({
     beers: (state) => state.beerModule.beers,
+    page: (state) => state.page,
   }),
 };
 </script>

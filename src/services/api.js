@@ -9,7 +9,7 @@ const api = axios.create({
 });
 
 export default {
-  getBeerList({ queryString, page, perPage = 9 }) {
+  getBeerList({ queryString, page = 1, perPage = 9 }) {
     if (queryString) {
       return api.get(
         `/beers?beer_name=${queryString}&page=${page}&per_page=${perPage}`
