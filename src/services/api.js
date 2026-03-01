@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://api.punkapi.com/v2/',
+  baseURL: 'https://punkapi-alxiw.amvera.io/v3/',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
